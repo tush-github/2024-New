@@ -1,0 +1,464 @@
+Selenium
+
+1.WebDriverException
+2.NoSuchElementException
+3.NoSuchFrameException
+4.NosuchWindowException
+5.NoAlertPresentException
+6.ElementNotVisibleException
+7.ElementNotInteractableExceptoion
+8.SessionNotCreatedException
+9.TimeoutException
+10.InvalidSelectorException
+11.IlligalStateException
+12.StaleElementReferenceException
+
+*******************************************************************************
+
+Xpath 
+
+Using Contains 
+//a[contains(text(),'Series')]
+//div[contains(@title,'Cricket Series')]
+
+Using and
+//a[@class='text-white' and contains(text(),'Series')]
+
+Using or
+//a[@class='text-white' and contains(text(),'Series') or @href='/cricket-schedule/series']
+
+Using starts-with
+//div[starts-with(@id,'series')]
+
+If we have text 
+//a[text()='Series']
+
+Using ancestor
+//a[text()='Series']/ancestor::div[1]
+
+Using child
+//div[@id='seriesDropDown']/child::a
+
+Using preceding
+//div[@id='seriesDropDown']/preceding::div[1]
+
+Using parent
+//div[@id='seriesDropDown']//parent::div
+
+Using self
+//div[@id='seriesDropDown']//self::div
+
+Following Sibling in XPath
+//*[text()='Squads']/following-sibling::a[1]
+
+*******************************************************************************
+Difference between relative and absolute xpath?
+
+Absolute XPath: Begins from the root of the HTML document and specifies the complete path to the element. It's not as flexible and can break if the page structure changes. 
+
+Relative XPath: Starts from a specific element and navigates through the DOM hierarchy to locate the desired element.
+
+**********************************************************************************
+
+What are Alerts in Selenium?
+
+Alert in Selenium is a message/notification box that notifies the user about some information or asks for permission to perform a certain kind of operation. It may be used for warning purposes as well.
+
+There are three types of Alert in Selenium, described as follows:
+
+Simple Alert
+Prompt Alert
+Confirmation Alert
+
+Java Alerts Handle 
+
+Alert alert = dr.switchTo().alert();
+alert.accept();
+alert.dismiss();
+alert.sandKeys("String"); 
+alert.getText();
+
+************************************************************
+
+
+Difference between get() and nevigate() methods?
+
+Session state: get() discards the session state with each call, while navigate() maintains state.
+
+Cookies: get() does not retain any browsing history, while navigate() does.
+
+Page load: get() waits until the page is loaded, while navigate() does not.
+
+Browser history: navigate() allows you to go back and forth into the browser's history, refresh the browser, and more. This is not possible with get()
+
+*******************************************************
+
+What is difference between alert and popup?
+
+An alert inside a browser is a small window that appears on a web page and displays a message to users. 
+A “popup” usually refers to a separate window or tab that opens in a web browser.
+
+********************************************************
+
+DropDown by using Select 
+
+Select objSelect = new Select(WebElement);
+objSelect.selectByVisibleText(“text”);
+oSelect.selectByIndex(int);
+oSelect.selectByValue(“text”);
+
+oSelect.getOptions();
+List<WebElement> allOptions = select.getOptions();
+
+
+*****************************************************
+
+DropDown- List 
+findElements()-List 
+getWindowHandles()-Set
+
+
+*****************************************************
+
+Actions class 
+
+Actions action = new Actions(driver);
+
+action.moveToElement(element).click().perform();
+
+ Mouse Actions in Selenium:
+
+doubleClick()
+clickAndHold()
+dragAndDrop(source, target)
+dragAndDropBy(source, x-offset, y-offset)
+moveToElement()
+moveByOffset(x-offset, y-offset)
+contextClick()
+release()
+
+
+Keyboard Actions in Selenium:
+
+sendKeys()
+WebElement.sendKeys(Keys.CONTROL);
+keyUp()
+keyDown()
+actions.keyDown(Keys.CONTROL);
+
+*****************************************************
+
+What is the option used for sending data in textbox other than sendkeys?
+
+>>Using JavaScript Executor:
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("arguments[0].value='your text'", element);
+
+>>Using Actions class :
+
+Actions actions = new Actions(driver);
+actions.sendKeys(element, "your text").perform();
+
+>>Using Robot class :
+Robot robot = new Robot();
+robot.keyPress(KeyEvent.VK_A); 
+robot.keyRelease(KeyEvent.VK_A);
+
+*********************************************************
+
+Difference between action and actions ?
+
+Action is an interface that represents a single user interaction.
+Actions is a class that extends the Object class. 
+
+******************************************************
+
+Difference between findElement and findElements
+
+findElement : returns first or single element. 
+If no element present then throws NoSuchElementException .
+
+findElements: returns list of elements. 
+Return type is List<>
+If no element present return zero element.
+
+***********************************************************************************
+
+difference between implicit and explicit wait
+
+Implicit waits are used to provide a default waiting time between each consecutive test step/command across the entire test script. 
+
+Explicit waits are loops added to the code that poll the application for a specific condition to evaluate as true before it exits the loop and continues to the next command in the code. 
+
+************************************************************
+
+difference between getwindowhandle and getwindowhandles
+
+getWindowHandle() :
+ 
+Returns a unique identifier of the current browser window. 
+It has a return type of String.
+
+getWindowHandles():
+Returns a set of all existing window identifiers. It has a return type of Set. 
+
+
+********************************************************
+
+The getLocation() method
+
+This is used to get the relative position of an element where it is rendered on the web page. This position is calculated relative to the top-left corner of the web page of which the (x, y) coordinates are assumed to be (0, 0).
+
+***********************************************************
+
+How to Scroll Down or UP Page in Selenium Webdriver
+
+To scroll using Selenium, you can use JavaScriptExecutor interface that helps to execute JavaScript methods through Selenium Webdriver
+
+Syntax:
+JavascriptExecutor js = (JavascriptExecutor) driver;  
+   js.executeScript(Script,Arguments);
+
+Scenario 1: To scroll down the web page by pixel.
+
+	     executeScript("window.scrollBy(x-pixels,y-pixels)");
+
+Scenario 2: To scroll down the web page by the visibility of the 	    element.
+
+	js.executeScript("arguments[0].scrollIntoView();",Element );
+
+	“arguments[0]” means first index of page starting at 0.
+
+Scenario 3: To scroll down the web page at the bottom of the page.
+
+	js.executeScript("window.scrollTo(0, 	document.body.scrollHeight)");
+
+Scenario 4: Horizontal scroll on the web page.
+		js.executeScript("arguments[0].scrollIntoView();",Element );
+
+********************************************************************
+
+How to take Screenshot in Selenium?
+
+Need apache.commons.io.FileUtils package to import
+
+TakesScreenshot scrShot =((TakesScreenshot)dd);
+        
+        File file =scrShot.getScreenshotAs(OutputType.FILE);
+        
+        File destFile=new File("C:\\Users\\tupancha\\Downloads\\Scr.png");
+        
+        FileUtils.copyFile(file, destFile);
+
+******************************************************************
+
+How to get color of webelement in selenium?
+
+Ans: WebElement e= dd.findElement();
+      String backColor= e.getCCSValue("background-color");
+String hexBackColor=Color.fromString(backColor).asHex();
+
+***************************************************************
+
+How we handle browser cookies using selenium?
+
+dd.manage().getCookieNamed(); - Get cookie with cookie name 
+
+
+Set<Cookie> cookies = dd.manage().getCookies();
+
+for(Cookie cookie:cookies)
+{
+
+System.out.println(cookies.getName()+":"+cookies.getValue())
+
+}
+
+Print size -cookies.size();
+
+Print cookie name - cookies.getName();
+
+Print cookie value - cookies.getValue();
+
+Add new cookie to browser :
+Cookie cObj= new Cookie("myCookie","123456");
+dd.manage().addCookie(cObj);
+
+dd.manage().deleteCookie(cObj);
+
+*****************************************************************
+
+How to upload file using selenium ?
+
+if there is an attribute type="file" and node is input 
+
+then we can directly upload file with sendkeys .
+
+element.sendKeys("file path");
+
+Otherwiaw we can upload file with robot class :
+
+
+Robot rb = new Robot();
+		
+rb.delay(2000);
+StringSelection ss = new StringSelection("file path");
+		
+Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+		
+		rb.keyPress(KeyEvent.VK_CONTROL);
+		rb.keyPress(KeyEvent.VK_V);
+		rb.keyRelease(KeyEvent.VK_CONTROL);
+		rb.keyRelease(KeyEvent.VK_V);
+		
+
+***************************************************************
+
+Which dependencies used in your project ?
+
+selenium-java -4.8 letest 4.12
+cucumber-java -7.7 letest 7.15
+cucumber-testng -7.7 letest 7.15
+
+****************************************************************
+
+What are the different types of annotations which are used in Selenium?
+
+@Test - This annotation is used to mark a method as a test method
+@BeforeMethod - This annotation is used to execute a method before each test method
+@AfterMethod - This annotation is used to execute a method after each test method
+@BeforeClass - This annotation is used to execute a method before the first test method
+
+******************************************************************************
+
+How to set browser window size in Selenium?
+
+To maximize the window
+
+   driver.manage().window().maximize();
+
+To set the window size
+
+  Dimension d = new Dimension(400,600);
+
+  driver.manage().window().setSize(d);
+
+Alternatively,
+
+The window size can be reset using JavaScriptExecutor
+
+ ((JavascriptExecutor)driver).executeScript("window.resizeTo(1024, 768)");
+
+*********************************************************************************
+
+What is Headless Browsers?
+
+Headless browser is nothing but the web browser without any graphical user interface. 
+As there is not GUI, everything is working through the command line.
+ It can easily manipulate and understand the DOM of HTML like other browsers including CSS, JS, Ajax, etc.
+
+**********************************************************************************
+
+What is extend reports in selenium?
+
+Extent Reports class is used to generate an HTML report on the user-specified path.
+
+Syntax:
+
+ExtentReports reports = new ExtentReports(“Path of directory to store the resultant HTML file”, true/false);
+
+The Boolean flag indicates if the existing report needs to be overwritten or a new report needs to be created. Value ‘true’ is the default value, which means all the existing data will be overwritten.
+
+Extent Test class is used to log test steps onto the generated HTML report.
+
+Build-in methods :
+
+startTest
+endTest
+Log
+flush
+
+**********************************************************************************
+ 
+What is BrowserStack?
+
+It is a cloud-based platform that provides web and mobile application testing infrastrcture. 
+It allows developers and testers to perform automated and manual testing of websites and mobile applications accross various browsers, OSs, and devices.
+It helps ensure compatibility and fuctionality across diff env, helping devs deliver high-quality web and mobile experience to users.
+
+**********************************************************************************
+
+difference between xpath and css selector?
+
+XPath also supports the text() function, backward traversing, and groupIndex. CSS selectors do not support the text() function, backward traversing, or groupIndex. 
+
+**********************************************************************************
+
+How can you run multiple scenario or feature in your cucumber project?
+
+>> Use common tags
+tags="@feature1scenariogroup1,@feature2scenariogroup2"
+
+>> Use the Examples feature
+
+**********************************************************************************
+
+What is cucumberOPtions and all cucumber options in testRunner file ?
+
+@CucumberOptions is an annotation in the test runner class of Cucumber that specifies different options for a Cucumber test. @CucumberOptions can be used to set specific properties for a cucumber test.
+
+1. dryRun - to compile all scenarios and features of feature file.
+2. monochrome - when it set to true.. we will get result in console.
+3. features - to set path of feature file.
+4. glue - to set path of stepDefinitions file 
+5. format - is used to specify different formatting options for the output reports.
+format = {"pretty"}
+format = {"html:Folder_Name"}
+format = {"json:Folder_Name/cucumber.json"}
+
+**********************************************************************************
+What is extend reports ?
+
+Extent Reports is an open-source reporting library useful for test automation. It can be easily integrated with major testing frameworks like JUnit, NUnit, TestNG, etc. These reports are HTML documents that depict results as pie charts.
+
+Syntax: 
+ExtentReports reports = new ExtentReports("Path of directory to store the resultant HTML file", true/false);
+
+ExtentTest test = reports.startTest("TestName");
+
+Both classes can be used with the following built-in methods:
+
+startTest: Executes preconditions of a test case
+endTest: Executes postconditions of a test case
+Log: Logs the status of each test step onto the HTML report being generated
+Flush: Erases any previous data on a relevant report and creates a whole new report
+
+**********************************************************************************
+
+How will you make only one scenario to not be executed and rest to be made executed in your cucumber project?
+
+Use @ignore tag to skip the scenario 
+
+or use specific tags to the scenarios which we want to execute 
+
+or use not knyword to skip that perticular scenario
+
+**********************************************************************************
+
+Read and write excel data ?
+
+Apache POI library 
+
+XSSFWorkbook > XSSFSheet > XSSFRow > XSSFCell 
+
+FileInputStream fis= new FileInputStream(file);
+
+WorkBook wb = new XSSFWorkBook(fis);
+
+XSSFSheet sheet = wb.getSheet("NewSheet");
+XSSFRow row= sheet.getRow(1);
+XSSFCell cell = sheet.getRow(1).getCell(1);
+
+String value= cell.getStringCellValue();
+
+
